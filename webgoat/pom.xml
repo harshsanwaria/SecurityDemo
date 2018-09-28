@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>WebGoat</groupId>
 	<artifactId>WebGoat</artifactId>
 	<packaging>war</packaging>
 	<version>5.4-SNAPSHOT</version>
-	
+
 	<repositories>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
@@ -13,7 +14,7 @@
 			<url>http://download.java.net/maven/2</url>
 		</repository>
 	</repositories>
-	
+
 
 	<build>
 		<resources>
@@ -35,11 +36,31 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        			<artifactId>maven-eclipse-plugin</artifactId>
-        			<configuration>
-          				<wtpversion>1.5</wtpversion>
-        			</configuration>
-      			</plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>1.5</wtpversion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<failOnError>true</failOnError>
+					<includeFilterFile>${session.executionRootDirectory}/spotbugs-security-include.xml</includeFilterFile>
+					<excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>LATEST</version> <!-- Auto-update to the latest stable -->
+						</plugin>
+					</plugins>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -89,11 +110,11 @@
 			<artifactId>commons-digester</artifactId>
 			<version>1.4.1</version>
 			<exclusions>
-         			<exclusion>
-           				<groupId>xml-apis</groupId>
-           				<artifactId>xml-apis</artifactId>
-         			</exclusion>
-       			</exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -150,14 +171,14 @@
 			<artifactId>jtds</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.3</version>
 			<scope>provided</scope>
 		</dependency>
- 		<dependency>
+		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>7.0.27</version>
